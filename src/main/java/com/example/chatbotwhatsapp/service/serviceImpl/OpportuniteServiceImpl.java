@@ -2,6 +2,7 @@ package com.example.chatbotwhatsapp.service.serviceImpl;
 
 
 import com.example.chatbotwhatsapp.dtos.OpportuniteDTO;
+import com.example.chatbotwhatsapp.dtos.UtilisateurDTO;
 import com.example.chatbotwhatsapp.entities.Opportunite;
 import com.example.chatbotwhatsapp.entities.Utilisateur;
 import com.example.chatbotwhatsapp.repositories.OpportuniteRepository;
@@ -31,9 +32,11 @@ public class OpportuniteServiceImpl implements OpportuniteService {
         return searchedOpportunite.map(opportunite -> ObjectMapperUtils.map(opportunite, OpportuniteDTO.class)).orElse(null);
     }
 
+    @Override
     public List<OpportuniteDTO> findBycommercial(Utilisateur commercial) {
         List<Opportunite> opportunites = opportuniteRepository.findBycommercial(commercial);
         return ObjectMapperUtils.mapAll(opportunites, OpportuniteDTO.class);
     }
+
 
 }

@@ -10,29 +10,27 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.Optional;
 
-@Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Opportunite {
+    @Entity
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Opportunite {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String description;
-    private String client;
-    private Date date;
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int id;
+        private String nom;
+        private String description;
+        private String client;
+        private Date date;
 
-    @ManyToOne
-    private Utilisateur commercial;
+        @ManyToOne
+        @JoinColumn(name = "commercial_phone_number")
+        private Utilisateur commercial;
 
-    @Enumerated(EnumType.STRING)
-    private statutOpp statut;
+        @Enumerated(EnumType.STRING)
+        private statutOpp statut;
 
-
-    public Optional<Utilisateur> setCommercial(Optional<Utilisateur> commercialUser) {
-        return commercialUser;
+//        public Optional<Utilisateur> setCommercial(Optional<Utilisateur> commercialUser) {
+//            return commercialUser;
+//        }
     }
-
-//    @ManyToOne
-//    private Chatbot chatbot;
-}

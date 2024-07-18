@@ -8,7 +8,7 @@ import com.example.chatbotwhatsapp.enums.statutPrj;
 import com.example.chatbotwhatsapp.repositories.OpportuniteRepository;
 import com.example.chatbotwhatsapp.repositories.ProjetRepository;
 import com.example.chatbotwhatsapp.repositories.UtilisateurRepository;
-import com.example.chatbotwhatsapp.service.WhatsAppService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +22,9 @@ import java.util.stream.Stream;
 @SpringBootApplication
 public class ChatbotWhatsappApplication {
 
+    @Value("${recipient_number}")
+    private String recipientNumber;
+
     public static void main(String[] args) {
         SpringApplication.run(ChatbotWhatsappApplication.class, args);
     }
@@ -29,19 +32,21 @@ public class ChatbotWhatsappApplication {
     @Bean
     CommandLineRunner start(UtilisateurRepository utilisateurRepository,
                             OpportuniteRepository opportuniteRepository,
-                            ProjetRepository projetRepository,
-                            WhatsAppService whatsAppService) {
+                            ProjetRepository projetRepository ) {
+
+
 
         return args -> {
-            // List Utilisateur
-            Stream.of("Hassan", "Yassine", "Aicha", "Amine", "Omar", "Fatima").forEach(name -> {
+
                 Utilisateur utilisateur = new Utilisateur();
-                utilisateur.setNom(name);
-                utilisateur.setPrenom("Benjelloun");
-                utilisateur.setEmail(name.toLowerCase() + "@gmail.com");
-                utilisateur.setTelephone(generatePhoneNumber());
+                utilisateur.setPhoneNumber(recipientNumber);
+                utilisateur.setNom("Amine");
+                utilisateur.setPrenom("Ouzane");
+                utilisateur.setEmail("amineouzane10@gmail.com");
                 utilisateurRepository.save(utilisateur);
-            });
+
+            System.out.println("User phone number: " + utilisateur.getPhoneNumber() );
+
 
             Stream.of("Hassan", "Yassine", "Aicha", "Amine", "Omar", "Fatima").forEach(name -> {
                 Utilisateur utilisateur2 = new Utilisateur();
@@ -50,13 +55,15 @@ public class ChatbotWhatsappApplication {
 
 
             // List Opportunite
-            Optional<Utilisateur> commercialUserOpportunite = utilisateurRepository.findByNom("commercialUsernameOpportunite");
+            Optional<Utilisateur> commercial_phoneNumber = utilisateurRepository.findByPhoneNumber("+212628402453");
+            Utilisateur commercialUser = commercial_phoneNumber.orElse(null); // unwrap the Optional
             Stream.of("Dell", "Asos", "Samsung", "HP", "Munisys", "Orange").forEach(name -> {
                 Opportunite opportunite1 = new Opportunite();
                 opportunite1.setClient(name);
                 opportunite1.setDate(new Date());
-                opportunite1.setCommercial(commercialUserOpportunite);
-                opportunite1.setDescription("Opportunite 1");
+                opportunite1.setNom("Opportunite " + name);
+                opportunite1.setCommercial(commercialUser);
+                opportunite1.setDescription("Opportunite Description");
                 opportunite1.setStatut(statutOpp.APPROUVE);
                 opportuniteRepository.save(opportunite1);
             });
@@ -75,16 +82,11 @@ public class ChatbotWhatsappApplication {
                 projetRepository.save(projet1);
             });
 
-        };
-    }
+        System.out.println("System is running on port 8083");
 
-    private String generatePhoneNumber() {
-        String prefix = "06";
-        int num1 = ThreadLocalRandom.current().nextInt(600, 700);
-        int num2 = ThreadLocalRandom.current().nextInt(0, 1000);
-        String formattedNum2 = String.format("%03d", num2);
-        int num3 = ThreadLocalRandom.current().nextInt(0, 10000);
-        String formattedNum3 = String.format("%04d", num3);
-        return prefix + num1 + formattedNum2 + formattedNum3;
+            ;
+
+
+        };
     }
 }

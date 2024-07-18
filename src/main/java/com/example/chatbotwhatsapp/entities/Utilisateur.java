@@ -15,13 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 public class Utilisateur {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Id
+    private String phoneNumber;
     private String nom;
     private String prenom;
     private String email;
 
-    private String telephone;
+//    private String telephone;
 
     @OneToMany(mappedBy = "commercial")
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

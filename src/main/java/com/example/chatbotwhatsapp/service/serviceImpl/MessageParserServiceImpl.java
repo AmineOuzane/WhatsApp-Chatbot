@@ -1,8 +1,6 @@
 package com.example.chatbotwhatsapp.service.serviceImpl;
 
 import com.example.chatbotwhatsapp.service.MessageParserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

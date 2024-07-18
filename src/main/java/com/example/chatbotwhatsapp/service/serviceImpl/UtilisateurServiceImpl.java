@@ -18,8 +18,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     UtilisateurRepository utilisateurRepository;
 
     @Override
-    public UtilisateurDTO getUtilisateurByTelephone(String telephone) {
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findByTelephone(telephone);
+    public UtilisateurDTO getUtilisateurByTelephone(String phoneNumber) {
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findByPhoneNumber(phoneNumber);
         return utilisateur.map(value -> ObjectMapperUtils.map(value, UtilisateurDTO.class)).orElse(null);    }
 }
 
