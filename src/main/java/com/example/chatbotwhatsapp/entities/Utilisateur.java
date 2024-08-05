@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,11 @@ public class Utilisateur {
     private String nom;
     private String prenom;
     private String email;
+    private String currentState;  // Added for managing conversation state
+    private LocalDateTime lastInteractionTime; // New field to track the last interaction time
 
-//    private String telephone;
+    private boolean isChefProjet;
+    private boolean isCommercial;
 
     @OneToMany(mappedBy = "commercial")
     // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

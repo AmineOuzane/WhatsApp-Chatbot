@@ -9,7 +9,6 @@ import com.example.chatbotwhatsapp.service.OpportuniteService;
 import com.example.chatbotwhatsapp.service.ProjetService;
 import com.example.chatbotwhatsapp.service.UtilisateurService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

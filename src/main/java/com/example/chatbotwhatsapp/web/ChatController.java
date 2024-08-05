@@ -4,7 +4,6 @@ package com.example.chatbotwhatsapp.web;
 import com.example.chatbotwhatsapp.dtos.OpportuniteDTO;
 import com.example.chatbotwhatsapp.dtos.ProjetDTO;
 import com.example.chatbotwhatsapp.dtos.UtilisateurDTO;
-import com.example.chatbotwhatsapp.entities.Projet;
 import com.example.chatbotwhatsapp.entities.Utilisateur;
 import com.example.chatbotwhatsapp.service.ChatService;
 import com.example.chatbotwhatsapp.service.OpportuniteService;
@@ -13,7 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,24 +37,24 @@ public class ChatController {
             return ResponseEntity.ok(user);
         } else {
             // Request has not been applied because it lacks valid authentication credentials for the target resource
-            return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-    @GetMapping("/projects/{chefProjets}")
-    public ResponseEntity<List<ProjetDTO>> listProjectsForUserChefProjet(@RequestParam Utilisateur chefProjet) {
+    @GetMapping("/projects/{chefProjet}")
+    public ResponseEntity<List<ProjetDTO>> listProjectsForUserChefProjet(@PathVariable Utilisateur chefProjet) {
         List<ProjetDTO> chefProjetProjets = chatService.listProjectsForUserChefProjet(chefProjet);
         return ResponseEntity.ok(chefProjetProjets);
     }
 
     @GetMapping("/projects/{commercial}")
-    public ResponseEntity<List<ProjetDTO>> listProjectsForUserCommercial(@RequestParam Utilisateur commercial) {
+    public ResponseEntity<List<ProjetDTO>> listProjectsForUserCommercial(@PathVariable Utilisateur commercial) {
         List<ProjetDTO> commercialProjets = chatService.listProjectsForUserChefProjet(commercial);
         return ResponseEntity.ok(commercialProjets);
     }
 
     @GetMapping("/opportunities/{commercial}")
-    public ResponseEntity<List<OpportuniteDTO>> listOpportunitiesForUser(@RequestParam Utilisateur commercial) {
+    public ResponseEntity<List<OpportuniteDTO>> listOpportunitiesForUser(@PathVariable Utilisateur commercial) {
         List<OpportuniteDTO> opportunities = chatService.listOpportunitesForUser(commercial);
         return ResponseEntity.ok(opportunities);
     }
@@ -72,5 +71,14 @@ public class ChatController {
         return ResponseEntity.ok(listProjets);
     }
 
+    @GetMapping("/searchProjetName/{nom}")
+    public ResponseEntity<ProjetDTO> searchProjetByName(@PathVariable String nom) {
+        ProjetDTO projetDTO = projetService.searchByName(nom);
+        if (projetDTO != null) {
+            return ResponseEntity.ok(projetDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
 }

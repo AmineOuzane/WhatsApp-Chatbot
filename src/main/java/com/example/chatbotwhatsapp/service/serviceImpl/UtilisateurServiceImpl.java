@@ -20,6 +20,22 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public UtilisateurDTO getUtilisateurByTelephone(String phoneNumber) {
         Optional<Utilisateur> utilisateur = utilisateurRepository.findByPhoneNumber(phoneNumber);
-        return utilisateur.map(value -> ObjectMapperUtils.map(value, UtilisateurDTO.class)).orElse(null);    }
+        return utilisateur.map(value -> ObjectMapperUtils.map(value, UtilisateurDTO.class)).orElse(null);
+    }
+
+    @Override
+    public void updateConversationState(String phoneNumber, String newState) {
+        Optional<Utilisateur> utilisateurOpt = utilisateurRepository.findByPhoneNumber(phoneNumber);
+        if (utilisateurOpt.isPresent()) {
+            Utilisateur utilisateur = utilisateurOpt.get();
+            utilisateur.setCurrentState(newState);
+            utilisateurRepository.save(utilisateur);
+        }
+    }
+
+    @Override
+    public void saveUtilisateur(Utilisateur utilisateur) {
+        utilisateurRepository.save(utilisateur);
+    }
 }
 

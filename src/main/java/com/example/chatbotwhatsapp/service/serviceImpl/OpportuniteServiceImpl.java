@@ -2,9 +2,9 @@ package com.example.chatbotwhatsapp.service.serviceImpl;
 
 
 import com.example.chatbotwhatsapp.dtos.OpportuniteDTO;
-import com.example.chatbotwhatsapp.dtos.UtilisateurDTO;
 import com.example.chatbotwhatsapp.entities.Opportunite;
 import com.example.chatbotwhatsapp.entities.Utilisateur;
+import com.example.chatbotwhatsapp.enums.statutOpp;
 import com.example.chatbotwhatsapp.repositories.OpportuniteRepository;
 import com.example.chatbotwhatsapp.service.OpportuniteService;
 import com.example.chatbotwhatsapp.utils.ObjectMapperUtils;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -38,5 +39,19 @@ public class OpportuniteServiceImpl implements OpportuniteService {
         return ObjectMapperUtils.mapAll(opportunites, OpportuniteDTO.class);
     }
 
+    @Override
+    public List<OpportuniteDTO> searchByStatus(statutOpp status) {
+        List<Opportunite> opportunities = opportuniteRepository.findByStatut(status);
+        return ObjectMapperUtils.mapAll(opportunities, OpportuniteDTO.class);
+    }
 
+    @Override
+    public OpportuniteDTO searchByName(String nom) {
+        Opportunite opportunitie = opportuniteRepository.findByName(nom);
+        if (opportunitie != null) {
+            return ObjectMapperUtils.map(opportunitie, OpportuniteDTO.class);
+        } else {
+            return null; // or return a default OpportuniteDTO object
+        }
+    }
 }

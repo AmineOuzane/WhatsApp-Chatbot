@@ -18,28 +18,20 @@ public class Projet {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    private String nom;
     private String description;
     private String client;
     private Date date;
 
     @ManyToOne
+    @JoinColumn(name = "chef_projet_phone_number")
     private Utilisateur chefProjet;
 
     @ManyToOne
+    @JoinColumn(name = "projet_commercial_phone_number")
     private Utilisateur commercial;
 
     @Enumerated(EnumType.STRING)
     private statutPrj statut;
 
-    public Optional<Utilisateur> setChefProjet(Optional<Utilisateur> chefProjetlUser) {
-        return chefProjetlUser;
-    }
-
-    public Optional<Utilisateur> setCommercial(Optional<Utilisateur> commercialUserProjet) {
-        return commercialUserProjet;
-    }
-
-//    @ManyToOne
-//    private Chatbot chatbot;
 }

@@ -66,27 +66,30 @@ public class ChatbotWhatsappApplication {
                 opportunite1.setDescription("Opportunite Description");
                 opportunite1.setStatut(statutOpp.APPROUVE);
                 opportuniteRepository.save(opportunite1);
+
             });
 
             // List Projet
-            Optional<Utilisateur> commercialUserProjet = utilisateurRepository.findByNom("commercialUsernameProjet");
-            Optional<Utilisateur> chefProjetlUser = utilisateurRepository.findByNom("chefProjetUsername");
+
+            Optional<Utilisateur> projetCommercial_phoneNumber = utilisateurRepository.findByPhoneNumber("+212628402453");
+            Utilisateur projetCommercialUser = projetCommercial_phoneNumber.orElse(null); // unwrap the Optional
+
+            Optional<Utilisateur> projetChef_phoneNumber = utilisateurRepository.findByPhoneNumber("+212628402453");
+            Utilisateur projetChefUser = projetChef_phoneNumber.orElse(null); // unwrap the Optional
+
             Stream.of("Dell", "Asos", "Samsung", "HP", "Munisys", "Orange").forEach(name -> {
                 Projet projet1 = new Projet();
                 projet1.setClient(name);
-                projet1.setCommercial(commercialUserProjet);
+                projet1.setCommercial(projetCommercialUser);
                 projet1.setDate(new Date());
-                projet1.setDescription("Project 1");
-                projet1.setChefProjet(chefProjetlUser);
+                projet1.setNom("Projet " + name);
+                projet1.setDescription("Project Description");
+                projet1.setChefProjet(projetChefUser);
                 projet1.setStatut(statutPrj.LANCEMENT);
                 projetRepository.save(projet1);
             });
 
         System.out.println("System is running on port 8083");
-
-            ;
-
-
         };
     }
 }

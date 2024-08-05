@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Optional;
 
     @Entity
     @Data
@@ -24,13 +23,10 @@ import java.util.Optional;
         private Date date;
 
         @ManyToOne
-        @JoinColumn(name = "commercial_phone_number")
+        @JoinColumn(name = "opportunite_commercial_phone_number")
         private Utilisateur commercial;
 
         @Enumerated(EnumType.STRING)
         private statutOpp statut;
 
-//        public Optional<Utilisateur> setCommercial(Optional<Utilisateur> commercialUser) {
-//            return commercialUser;
-//        }
     }
