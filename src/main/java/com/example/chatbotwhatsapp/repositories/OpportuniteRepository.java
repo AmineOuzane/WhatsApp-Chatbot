@@ -16,6 +16,9 @@ public interface OpportuniteRepository extends JpaRepository<Opportunite, Intege
     @Query("SELECT o FROM Opportunite o WHERE o.statut = :status")
     List<Opportunite> findByStatut(@Param("status") statutOpp status);
 
-        @Query("SELECT o FROM Opportunite o WHERE o.nom LIKE %:nom%")
-        Opportunite findByName(@Param("nom") String name);
+    @Query("SELECT o FROM Opportunite o WHERE o.nom LIKE %:nom%")
+    Opportunite findByName(@Param("nom") String name);
+
+//    Opportunite updateOpportuniteByStatut(statutOpp statut);
+
 }

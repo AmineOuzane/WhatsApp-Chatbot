@@ -1,8 +1,6 @@
 package com.example.chatbotwhatsapp.service;
 
 import com.example.chatbotwhatsapp.enums.ChatState;
-import com.example.chatbotwhatsapp.enums.statutOpp;
-import com.example.chatbotwhatsapp.enums.statutPrj;
 
 public interface InteractionService {
 

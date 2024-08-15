@@ -1,7 +1,6 @@
 package com.example.chatbotwhatsapp.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,8 +20,8 @@ public class Utilisateur {
     private String nom;
     private String prenom;
     private String email;
-    private String currentState;  // Added for managing conversation state
-    private LocalDateTime lastInteractionTime; // New field to track the last interaction time
+    private String currentState;
+    private LocalDateTime lastInteractionTime;
 
     private boolean isChefProjet;
     private boolean isCommercial;

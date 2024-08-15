@@ -30,6 +30,7 @@ public class InteractionServiceImpl implements InteractionService {
     private AboutMeService aboutMeService;
     private OpportuniteService opportuniteService;
     private ProjetService projetService;
+    private ValidateOpportunity validateOpportunity;
 
 
 

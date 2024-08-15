@@ -3,7 +3,9 @@ package com.example.chatbotwhatsapp.exceptions;
 public class ResourceNotFoundException extends Exception{
     private static final long serialVersionUID=1L;
     private Long resourceId;
-    public ResourceNotFoundException(String message){super((message));}
+    public ResourceNotFoundException(String message){
+        super((message));
+    }
     public ResourceNotFoundException(Long resourceId){
         super();
         this.resourceId=resourceId;

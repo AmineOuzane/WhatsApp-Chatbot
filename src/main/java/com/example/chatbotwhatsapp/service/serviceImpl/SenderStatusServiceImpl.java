@@ -62,7 +62,7 @@ public class SenderStatusServiceImpl implements SenderStatusService {
             requestBody.put("to", recipientNumber);
             requestBody.put("type", "template");
             requestBody.put("template", new JSONObject()
-                    .put("name", "no_opportunite_per_status")       // Template name no_opportunite
+                    .put("name", "no_opportunite_per_status")
                     .put("language", new JSONObject()
                             .put("code", "en")
                             .put("policy", "deterministic"))
@@ -79,8 +79,6 @@ public class SenderStatusServiceImpl implements SenderStatusService {
             return ResponseEntity.ok(response);
         } else {
             // Return a 404 error or a custom error message if opportunities are found
-
-            // change it when i wanna display the opportunite per status else 404 when opportunite are existant per status
             return ResponseEntity.notFound().build();
         }
     }
@@ -101,7 +99,7 @@ public class SenderStatusServiceImpl implements SenderStatusService {
             requestBody.put("to", recipientNumber);
             requestBody.put("type", "template");
             requestBody.put("template", new JSONObject()
-                    .put("name", "no_projet_per_statut")       // Template name no_opportunite
+                    .put("name", "no_projet_per_statut")
                     .put("language", new JSONObject()
                             .put("code", "en")
                             .put("policy", "deterministic"))
@@ -117,9 +115,7 @@ public class SenderStatusServiceImpl implements SenderStatusService {
             String response = restTemplate.postForObject(whatsappApiUrl, request, String.class);
             return ResponseEntity.ok(response);
         } else {
-            // Return a 404 error or a custom error message if opportunities are found
 
-            // change it when i wanna display the opportunite per staus else 404 when opportunite are existant per status
             return ResponseEntity.notFound().build();
         }
     }
@@ -227,10 +223,9 @@ public class SenderStatusServiceImpl implements SenderStatusService {
             components.put(body);
 
             // Add the components to the template
-            template.put("components", components);
-
+               template.put("components", components);
             // Add the template to the request body
-            requestBody.put("template", template);
+               requestBody.put("template", template);
 
             HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
             return restTemplate.postForEntity(whatsappApiUrl, request, String.class);

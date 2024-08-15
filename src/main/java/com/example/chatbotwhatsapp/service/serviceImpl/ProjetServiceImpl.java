@@ -39,7 +39,6 @@ public class ProjetServiceImpl implements ProjetService {
         return searchedProjet.map(projet -> ObjectMapperUtils.map(projet, ProjetDTO.class)).orElse(null);
     }
 
-
     public List<ProjetDTO> findBychefProjet(Utilisateur chefProjet) {
         List<Projet> projetsChefProjet = projetRepository.findBychefProjet(chefProjet);
         return ObjectMapperUtils.mapAll(projetsChefProjet, ProjetDTO.class);

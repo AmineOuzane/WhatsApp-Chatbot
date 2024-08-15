@@ -17,7 +17,7 @@ public class DtoConverter {
         return utilisateur;
     }
 
-    public Opportunite convertOpportuniteDTOToOpportunite(OpportuniteDTO opportuniteDTO) {
+    public static Opportunite convertOpportuniteDTOToOpportunite(OpportuniteDTO opportuniteDTO) {
         Opportunite opportunite = new Opportunite();
         opportunite.setId(opportuniteDTO.getId());
         opportunite.setNom(opportuniteDTO.getNom());
@@ -29,6 +29,30 @@ public class DtoConverter {
         opportunite.setCommercial(commercial);
         opportunite.setStatut(opportuniteDTO.getStatut());
         return opportunite;
+    }
+
+    public static OpportuniteDTO convertOpportuniteToOpportuniteDTO(Opportunite opportunite) {
+        OpportuniteDTO opportuniteDTO = new OpportuniteDTO();
+        opportuniteDTO.setId(opportunite.getId());
+        opportuniteDTO.setNom(opportunite.getNom());
+        opportuniteDTO.setDescription(opportunite.getDescription());
+        opportuniteDTO.setClient(opportunite.getClient());
+        opportuniteDTO.setDate(opportunite.getDate());
+        Utilisateur commercial = opportunite.getCommercial();
+        UtilisateurDTO utilisateurDTO = convertUtilisateurToUtilisateurDTO(commercial);
+        opportuniteDTO.setCommercial(utilisateurDTO);
+        opportuniteDTO.setStatut(opportunite.getStatut());
+        return opportuniteDTO;
+    }
+
+    // Converter method
+    public static UtilisateurDTO convertUtilisateurToUtilisateurDTO(Utilisateur utilisateur) {
+        UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
+        utilisateurDTO.setPhoneNumber(utilisateur.getPhoneNumber());
+        utilisateurDTO.setNom(utilisateur.getNom());
+        utilisateurDTO.setPrenom(utilisateur.getPrenom());
+        // Set other UtilisateurDTO fields as needed
+        return utilisateurDTO;
     }
 
 }

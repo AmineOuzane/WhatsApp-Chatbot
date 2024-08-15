@@ -1,6 +1,7 @@
 package com.example.chatbotwhatsapp.service;
 
 import com.example.chatbotwhatsapp.dtos.OpportuniteDTO;
+import com.example.chatbotwhatsapp.entities.Opportunite;
 import com.example.chatbotwhatsapp.entities.Utilisateur;
 import com.example.chatbotwhatsapp.enums.statutOpp;
 
@@ -13,5 +14,7 @@ public interface OpportuniteService {
      List<OpportuniteDTO> findBycommercial(Utilisateur commercial);
      List<OpportuniteDTO> searchByStatus(statutOpp status);
      OpportuniteDTO searchByName(String nom);
-
+     Opportunite saveOpportunite(OpportuniteDTO opportuniteDTO);
+     void updateOpportunityStatus(int id, statutOpp statut);
+     Opportunite convertToEntity(OpportuniteDTO opportuniteDTO);
 }

@@ -9,5 +9,4 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, String
 
     Optional<Utilisateur> findByPhoneNumber(String phoneNumber);
     Optional<Utilisateur> findByNom(String name);
-    boolean existsByPhoneNumber(String phoneNumber);
 }

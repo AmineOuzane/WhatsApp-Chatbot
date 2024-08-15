@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -35,7 +34,6 @@ public class ChatbotWhatsappApplication {
                             ProjetRepository projetRepository ) {
 
 
-
         return args -> {
 
                 Utilisateur utilisateur = new Utilisateur();
@@ -48,16 +46,16 @@ public class ChatbotWhatsappApplication {
             System.out.println("User phone number: " + utilisateur.getPhoneNumber() );
 
 
-            Stream.of("Hassan", "Yassine", "Aicha", "Amine", "Omar", "Fatima").forEach(name -> {
-                Utilisateur utilisateur2 = new Utilisateur();
-                utilisateur2.setNom(name);
-            });
+//            Stream.of("Hassan", "Yassine", "Aicha", "Amine", "Omar", "Fatima").forEach(name -> {
+//                Utilisateur utilisateur2 = new Utilisateur();
+//                utilisateur2.setNom(name);
+//            });
 
 
             // List Opportunite
             Optional<Utilisateur> commercial_phoneNumber = utilisateurRepository.findByPhoneNumber("+212628402453");
             Utilisateur commercialUser = commercial_phoneNumber.orElse(null); // unwrap the Optional
-            Stream.of("Dell", "Asos", "Samsung", "HP", "Munisys", "Orange").forEach(name -> {
+            Stream.of("Dell","Samsung", "HP", "Munisys").forEach(name -> {
                 Opportunite opportunite1 = new Opportunite();
                 opportunite1.setClient(name);
                 opportunite1.setDate(new Date());
@@ -66,7 +64,20 @@ public class ChatbotWhatsappApplication {
                 opportunite1.setDescription("Opportunite Description");
                 opportunite1.setStatut(statutOpp.APPROUVE);
                 opportuniteRepository.save(opportunite1);
+            });
 
+
+            // List Opportunite
+            Optional<Utilisateur> commercial_phoneNumber2 = utilisateurRepository.findByPhoneNumber("+212628402453");
+            Utilisateur commercialUser2 = commercial_phoneNumber.orElse(null); // unwrap the Optional
+            Stream.of("Asus","Lenovo").forEach(name -> {
+                Opportunite opportunite1 = new Opportunite();
+                opportunite1.setClient(name);
+                opportunite1.setDate(new Date());
+                opportunite1.setNom("Opportunite " + name);
+                opportunite1.setCommercial(commercialUser2);
+                opportunite1.setDescription("Opportunite Description");
+                opportuniteRepository.save(opportunite1);
             });
 
             // List Projet

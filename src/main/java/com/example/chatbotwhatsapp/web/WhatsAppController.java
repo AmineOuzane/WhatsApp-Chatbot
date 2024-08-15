@@ -18,13 +18,15 @@ public class WhatsAppController {
     private final AboutMeService aboutMeService;
     private final DetailsOpportuniteService detailsOpportuniteService;
     private final DetailsProjetService detailsProjetService;
+    private final ValidateOpportunity validateOpportunity;
 
-    public WhatsAppController(messageSenderService messageService, SenderStatusService senderStatusService, AboutMeService aboutMeService, DetailsOpportuniteService detailsOpportuniteService, DetailsProjetService detailsProjetService, DetailsProjetService detailsProjetService1, DetailsProjetService detailsProjetService2) {
+    public WhatsAppController(messageSenderService messageService, SenderStatusService senderStatusService, AboutMeService aboutMeService, DetailsOpportuniteService detailsOpportuniteService, DetailsProjetService detailsProjetService, DetailsProjetService detailsProjetService1, DetailsProjetService detailsProjetService2, ValidateOpportunity validateOpportunity) {
         this.messageService = messageService;
         this.senderStatusService = senderStatusService;
         this.aboutMeService = aboutMeService;
         this.detailsOpportuniteService = detailsOpportuniteService;
         this.detailsProjetService = detailsProjetService2;
+        this.validateOpportunity = validateOpportunity;
     }
 
 
@@ -148,4 +150,8 @@ public class WhatsAppController {
         return detailsProjetService.sendProjetDetails(nom);
     }
 
+    @PostMapping("handleOpportunity/{id}/{phoneNumber}")
+    public ResponseEntity<String> handleOpportunity(@PathVariable int id, @PathVariable String phoneNumber) {
+        return validateOpportunity.validateOpportunity(id, phoneNumber);
+    }
 }

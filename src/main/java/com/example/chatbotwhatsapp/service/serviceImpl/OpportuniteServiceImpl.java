@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -54,4 +53,23 @@ public class OpportuniteServiceImpl implements OpportuniteService {
             return null; // or return a default OpportuniteDTO object
         }
     }
+
+    @Override
+    public Opportunite saveOpportunite(OpportuniteDTO opportuniteDTO) {
+        Opportunite opportunite = convertToEntity(opportuniteDTO);
+        return opportuniteRepository.save(opportunite);
+    }
+
+    @Override
+    public void updateOpportunityStatus(int id, statutOpp statut) {
+        Opportunite opportunite = opportuniteRepository.findById(id).orElseThrow(() -> new RuntimeException("Opportunity not found"));
+        opportunite.setStatut(statut);
+        opportuniteRepository.save(opportunite);
+    }
+
+    @Override
+    public Opportunite convertToEntity(OpportuniteDTO opportuniteDTO) {
+        return ObjectMapperUtils.map(opportuniteDTO, Opportunite.class);
+    }
+
 }

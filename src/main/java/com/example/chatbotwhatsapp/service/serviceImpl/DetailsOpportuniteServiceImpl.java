@@ -75,6 +75,7 @@ public class DetailsOpportuniteServiceImpl implements DetailsOpportuniteService 
         public ResponseEntity<String> sendOpportuniteDetails(String nom) {
 
             OpportuniteDTO opportunite = opportuniteService.searchByName(nom);
+            String statutString = opportunite.getStatut() != null ? opportunite.getStatut().toString() : "Unknown";
             if (opportunite != null) {
                 // Logging each field
 
@@ -130,7 +131,7 @@ public class DetailsOpportuniteServiceImpl implements DetailsOpportuniteService 
                                 .put("text", opportunite.getCommercial().getNom()))
                         .put(new JSONObject()
                                 .put("type", "text")
-                                .put("text",opportunite.getStatut())));
+                                .put("text",statutString)));
                 components.put(body);
 
                 // Add the components to the template
@@ -142,8 +143,8 @@ public class DetailsOpportuniteServiceImpl implements DetailsOpportuniteService 
 
                 HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
                 return restTemplate.postForEntity(whatsappApiUrl, request, String.class);
-            } else {
-                // Return a 404 error or a custom error message if the user is not found
+            }
+            else {
                 return ResponseEntity.notFound().build();
             }
 

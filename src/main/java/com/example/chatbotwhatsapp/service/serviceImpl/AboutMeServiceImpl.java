@@ -87,7 +87,6 @@ public class AboutMeServiceImpl implements AboutMeService {
         requestBody.put("template", template); // Add the template to the request body
 
         HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
-
         return restTemplate.postForEntity(whatsappApiUrl, request, String.class);
 
     }

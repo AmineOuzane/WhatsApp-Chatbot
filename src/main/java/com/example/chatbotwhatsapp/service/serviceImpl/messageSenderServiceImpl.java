@@ -44,7 +44,6 @@ public class messageSenderServiceImpl implements messageSenderService {
     public messageSenderServiceImpl(RestTemplate restTemplate) {
     }
 
-    // Message no Variable
     public ResponseEntity<String> sendTemplateMessage(){
 
         RestTemplate restTemplate = new RestTemplate();
