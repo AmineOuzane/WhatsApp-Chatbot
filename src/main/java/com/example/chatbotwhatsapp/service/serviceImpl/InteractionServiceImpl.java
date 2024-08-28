@@ -232,7 +232,6 @@ public class InteractionServiceImpl implements InteractionService {
                 }
                 default -> ChatState.SAISIR_STATUS_PROJET; // Invalid input, prompt for input again
             };
-
             default -> currentState;
         };
     }

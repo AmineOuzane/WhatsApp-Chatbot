@@ -2,6 +2,7 @@ package com.example.chatbotwhatsapp.service.serviceImpl;
 
 import com.example.chatbotwhatsapp.dtos.OpportuniteDTO;
 import com.example.chatbotwhatsapp.dtos.UtilisateurDTO;
+import com.example.chatbotwhatsapp.enums.statutOpp;
 import com.example.chatbotwhatsapp.service.MessageIdMappingService;
 import com.example.chatbotwhatsapp.service.OpportuniteService;
 import com.example.chatbotwhatsapp.service.UtilisateurService;
@@ -125,10 +126,13 @@ public  class ValidateOpportunityImpl implements ValidateOpportunity {
             System.out.println("Storing mapping: Message ID = " + messageId + ", Opportunity ID = " + opportuniteId);
             messageIdMappingService.storeMapping(messageId, opportuniteId); // Store mapping
             System.out.println("Map size after storing: " + messageIdMappingService.getMapSize());
+            opportuniteService.updateOpportunityStatus(opportuniteId, statutOpp.EN_ATTENTE);
+            System.out.println("Opportunity " + opportuniteId + " est en attente !");
 
         } else {
             System.out.println("Storing mapping: Message ID is null!");
         }
+
         return response;
     }
 

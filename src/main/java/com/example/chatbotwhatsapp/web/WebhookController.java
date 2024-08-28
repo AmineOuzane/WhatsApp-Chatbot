@@ -82,7 +82,6 @@ public class WebhookController {
                                             String originalMessageId = context != null ? (String) context.get("id") : null;
                                             System.out.println("Original Message ID: " + originalMessageId);
 
-                                            // Log all mappings before processing
                                             messageIdMappingService.logAllMappings();
 
                                             Integer opportunityId = messageIdMappingService.getOpportunityId(originalMessageId);
@@ -91,8 +90,8 @@ public class WebhookController {
                                             if (opportunityId == null) {
                                                 System.out.println("No opportunity found for original message ID: " + originalMessageId);
                                             } else {
-                                                opportuniteService.updateOpportunityStatus(opportunityId, statutOpp.EN_ATTENTE);
-                                                System.out.println("Opportunity " + opportunityId + " est en attente !");
+
+                                                // Opportunity set to EN_ATTENTE after sending the message
                                                 if ("Approuver".equalsIgnoreCase(buttonPayload)) {
                                                     opportuniteService.updateOpportunityStatus(opportunityId, statutOpp.APPROUVE);
                                                     System.out.println("Opportunity " + opportunityId + " est approuvé !");
@@ -105,7 +104,7 @@ public class WebhookController {
                                     }
                                     /*
                                          Restarting the project re-initialize the status of the opportunities like in the Main
-                                         To avoid that change create to update in application properties
+                                         To avoid that change "create" to "update" in application properties
                                     */
 
                                     // Handle Text Messages
@@ -120,7 +119,6 @@ public class WebhookController {
                                             String sender = (String) message.get("from");
                                             System.out.println("Sender phone number :" + sender);
 
-                                            // Handle the interaction based on the sender and message body
                                             interactionService.handleInteraction(sender, messageBody);
                                         }
                                     }
